@@ -1,0 +1,28 @@
+name: Feature request / 功能建议
+description: 新能力、配置项、兼容性诉求
+labels: [enhancement]
+body:
+  - type: textarea
+    id: scenario
+    attributes:
+      label: 使用场景
+      description: 你在做什么业务，属于什么页面/端（H5 / 桌面 Web / 内嵌 WebView）
+      placeholder: 直播间礼物动效，需要在播放中替换用户头像与昵称
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 现在的做法与不足
+      description: 目前是怎么绕过的？卡在哪一步？
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 期望的 API 或行为
+      description: 有具体签名/配置名更好；若与现有 API 冲突请说明
+    validations:
+      required: false

@@ -1,0 +1,24 @@
+# 依赖
+node_modules/
+
+# 构建产物（由 CI 生成，不提交）
+dist/
+
+# 本地环境与编辑器
+*.local
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# 日志
+*.log
+npm-debug.log*
+
+# 依赖锁文件：CI 在 Linux 上全新解析依赖。
+# Windows 生成的 lock 会缺平台相关 optionalDependencies（npm/cli#4828），在 Runner 上装不上 rollup/esbuild 的 native 包。
+package-lock.json

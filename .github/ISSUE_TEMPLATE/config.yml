@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 在线演示 Live Demo
+    url: https://1707979815.github.io/VAP-Web/
+    about: 先用你的素材在 demo 里跑一遍，能快速区分是素材问题还是库的问题
+  - name: npm 包与完整文档
+    url: https://www.npmjs.com/package/custom-vap
+    about: 安装方式、配置项、API、事件与错误码

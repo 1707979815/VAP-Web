@@ -1,0 +1,66 @@
+name: Deploy demo to GitHub Pages
+
+# 本仓库（GitHub 公开仓库）只含 README 与 demo 源码，不含播放器源码。
+# demo 依赖 npm registry 上已发布的 custom-vap（见 demo/vite-rollup-esm/package.json）。
+# npm 发布新版本后，手动跑一次本 workflow（workflow_dispatch）即可让线上 demo 用上新版本。
+#
+# 不提交 package-lock.json：Windows 生成的 lock 会缺 Linux 平台的 optionalDependencies
+# （npm/cli#4828，如 @rollup/rollup-linux-x64-gnu），CI 每次在 Linux 上全新解析依赖。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'demo/vite-rollup-esm/**'
+      - '.github/workflows/demo.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install demo dependencies
+        working-directory: demo/vite-rollup-esm
+        run: npm install --no-audit --no-fund
+
+      - name: Type check
+        working-directory: demo/vite-rollup-esm
+        run: npx tsc --noEmit
+
+      - name: Build demo
+        working-directory: demo/vite-rollup-esm
+        run: npm run build
+
+      - uses: actions/configure-pages@v5
+        with:
+          # 仓库尚未启用 Pages 时，允许 action 自动创建并启用（build_type = GitHub Actions）
+          enablement: true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: demo/vite-rollup-esm/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

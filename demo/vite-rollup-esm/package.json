@@ -1,0 +1,21 @@
+{
+  "name": "vap-web-demo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "custom-vap 在线演示：单实例动效调试台 + 多实例压测（Vue 3 + Vite）",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "custom-vap": "^1.1.1",
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
+  }
+}

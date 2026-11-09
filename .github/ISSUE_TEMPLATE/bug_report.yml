@@ -1,0 +1,75 @@
+name: Bug report / 问题反馈
+description: 播放异常、透明边缘异常、插槽替换失效、性能或类型问题
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。缺少版本、错误码与复现素材的问题通常无法定位，请尽量补齐。
+        提交前可以先在[在线演示](https://1707979815.github.io/VAP-Web/)里替换成你的素材跑一遍，用于区分「库的问题」与「素材的问题」。
+
+  - type: input
+    id: version
+    attributes:
+      label: custom-vap 版本
+      placeholder: 1.1.0
+    validations:
+      required: true
+
+  - type: input
+    id: env
+    attributes:
+      label: 运行环境
+      description: 浏览器 / 设备 / 是否真机
+      placeholder: Chrome 130 桌面 / iOS 17 Safari / Android 13 微信内置浏览器
+    validations:
+      required: true
+
+  - type: dropdown
+    id: render
+    attributes:
+      label: 渲染模式
+      options:
+        - 默认（isPreciseFrame: true，支持 rVFC）
+        - isPreciseFrame: true 但环境回退到 rAF
+        - isPreciseFrame: false（独立 rAF）
+    validations:
+      required: false
+
+  - type: input
+    id: code
+    attributes:
+      label: error 事件里的 code
+      description: 若有报错，填 `error` payload 中的 `code`（如 NETWORK / PARSE_FAILED / VIDEO_ERROR）
+      placeholder: VIDEO_ERROR
+    validations:
+      required: false
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      description: 最小可复现片段或在线链接（StackBlitz / CodeSandbox 最佳）
+      placeholder: |
+        1. new CustomVap(el, { loop: 0, isPreciseFrame: true })
+        2. await player.load(url)
+        3. 期望 X，实际 Y
+    validations:
+      required: true
+
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 期望行为 / 实际行为
+      description: 控制台报错、录屏、截图请一并贴出（涉及透明边缘时请标注是 RGB 区、Alpha 区还是融合层）
+    validations:
+      required: true
+
+  - type: textarea
+    id: asset
+    attributes:
+      label: 素材信息
+      description: 若不便公开素材，请说明帧数 / fps / 是否 VAPX / 是否为该素材独有；能提供最小素材会大幅缩短定位时间
+      placeholder: 192 帧 / 24fps / VAPX 带 2 个图片插槽；仅这份素材复现
+    validations:
+      required: false
