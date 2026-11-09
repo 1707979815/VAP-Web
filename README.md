@@ -196,6 +196,7 @@ window.addEventListener('resize', () => player.resize());
 | `isPreciseFrame` | `boolean` | `true` | 是否使用 rVFC 精确帧渲染（不支持时自动回退独立 RAF） |
 | `isClickable` | `boolean` | `false` | 是否启用 VAPX 融合层插槽点击事件 |
 | `invisibleBehavior` | `'pause' \| 'skip'` | `'skip'` | 移出视口时的行为：`pause` 自动暂停、`skip` 跳过渲染保持播放 |
+| `defaultPoster` | `string` | - | 默认海报图地址：未播放 / `Clearward` 清屏 / 加载失败时显示 |
 | `fusionEdge` | `'linear' \| 'smooth'` | `'linear'` | 融合层遮罩曲线：`linear` 直乘遮罩 alpha（还原素材设计）；`smooth` 走 `smoothstep` 硬化边缘，可压制 mp4 遮罩通道压缩噪点 |
 | `fusionAlphaBoost` | `number` | `1` | 融合层遮罩 alpha 增益；`>1` 更实，仅特殊观感需求时调 |
 
@@ -218,6 +219,7 @@ window.addEventListener('resize', () => player.resize());
 | `setText(tag, text)` | 设置融合层文本资源 |
 | `setDynamicResources(headData)` | 批量设置动态资源，支持 `[tag]` 通配匹配，返回 `Promise<this>` |
 | `updateOptions(newOptions)` | 动态合并更新配置；`defaultPoster` 变更会同步刷新/清除海报，`fusionEdge`/`fusionAlphaBoost` 变更会立即重绘当前帧 |
+| `skipRender(skip?)` | 暂停 / 恢复绘制，帧同步继续推进（切 tab、被弹窗遮挡时用）；不传参时切换当前状态 |
 | `on(event, callback)` | 监听事件（多监听并存），返回 `this` |
 | `off(event, callback)` | 移除事件监听，返回 `this` |
 | `onLoad(callback)` | 便捷单监听 `load`（重复调用自动替换），返回取消函数 |
@@ -468,7 +470,7 @@ MIT © 2026 [DreamLife(Zhou)](https://github.com/1707979815)
 ## 📦 关于本仓库
 
 - 本仓库是 **展示仓**：`demo/vite-rollup-esm` 即线上演示站点的源码（GitHub Pages 自动部署），**不含播放器源码**。
-- 播放器以编译后的 npm 包发布，demo 直接依赖 registry 上的版本，同时也是接入参考实现。
+- 播放器以编译后的 npm 包产物分发，demo 依赖的正是这份产物（当前固定在 `demo/vite-rollup-esm/vendor/` 的 tarball；registry 上发布对应版本后切回 `^x.y.z`），同时也是接入参考实现。
 - 遇到问题或想要新能力，请到 [Issues](https://github.com/1707979815/VAP-Web/issues) 反馈；迁移、素材兼容等问题附上最小复现会快很多。
 
 ## 🙏 致谢

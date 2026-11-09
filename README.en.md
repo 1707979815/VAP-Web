@@ -130,6 +130,7 @@ new CustomVap(el: HTMLDivElement | HTMLCanvasElement, options?: VapOptions)
 | `invisibleBehavior` | `'pause' \| 'skip'` | `'skip'` | Off-screen: pause the timeline, or keep it running and skip painting. |
 | `fusionEdge` | `'linear' \| 'smooth'` | `'linear'` | Mask curve for the fusion layer. `linear` multiplies the mask alpha as authored; `smooth` hardens it (useful for noisy alpha channels in heavily compressed mp4s). |
 | `fusionAlphaBoost` | `number` | `1` | Alpha gain for the fusion layer. |
+| `defaultPoster` | `string` | — | Poster image shown while idle, after `Clearward`, or when loading fails. |
 
 ### Methods
 
@@ -177,7 +178,7 @@ The `error` payload is always `{ error, code, message, tips }`: `error` is the `
 
 ## This repository
 
-This is the **showcase repository**: it contains the README and the demo site only. The player itself ships as a compiled npm package, so there is no `src/` here — the demo consumes `custom-vap` from the registry, which doubles as the reference implementation.
+This is the **showcase repository**: it contains the README and the demo site only. The player itself ships as a compiled npm package, so there is no `src/` here — the demo consumes that packaged artifact, which doubles as the reference implementation. The exact build is pinned in `demo/vite-rollup-esm/vendor/` until the matching version is published to the registry.
 
 - Package: <https://www.npmjs.com/package/custom-vap>
 - Live demo: <https://1707979815.github.io/VAP-Web/>
