@@ -208,7 +208,7 @@ export function usePlayer() {
   function create(el, options = {}) {
     destroy();
     player = new CustomVap(el, {
-      loop: 1,
+      loop: 0,
       muted: true,
       isPreciseFrame: true,
       isClickable: true,

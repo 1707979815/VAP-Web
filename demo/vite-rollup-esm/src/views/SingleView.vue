@@ -23,9 +23,9 @@ const presetKey = ref(DEFAULT_PRESET.file);
 const useCustomUrl = ref(false);
 const customUrl = ref("");
 
-/** 运行期选项 */
+/** 运行期选项（默认 loop: 0 = 无限循环，演示更直观） */
 const opts = reactive({
-  loop: 1,
+  loop: 0,
   muted: true,
   volume: 1,
   /** 0 表示跟随素材原始帧率 */
