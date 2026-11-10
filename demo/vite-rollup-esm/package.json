@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "custom-vap": "file:./vendor/custom-vap-1.1.1.tgz",
+    "custom-vap": "^1.1.2",
     "vue": "^3.5.0"
   },
   "devDependencies": {

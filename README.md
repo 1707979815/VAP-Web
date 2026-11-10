@@ -470,7 +470,7 @@ MIT © 2026 [DreamLife(Zhou)](https://github.com/1707979815)
 ## 📦 关于本仓库
 
 - 本仓库是 **展示仓**：`demo/vite-rollup-esm` 即线上演示站点的源码（GitHub Pages 自动部署），**不含播放器源码**。
-- 播放器以编译后的 npm 包产物分发，demo 依赖的正是这份产物（当前固定在 `demo/vite-rollup-esm/vendor/` 的 tarball；registry 上发布对应版本后切回 `^x.y.z`），同时也是接入参考实现。
+- 播放器以编译后的 npm 包产物分发，demo 直接依赖 registry 上已发布的 [`custom-vap`](https://www.npmjs.com/package/custom-vap)（`^1.1.2`），同时也是接入参考实现。
 - 遇到问题或想要新能力，请到 [Issues](https://github.com/1707979815/VAP-Web/issues) 反馈；迁移、素材兼容等问题附上最小复现会快很多。
 
 ## 🙏 致谢

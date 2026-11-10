@@ -4,6 +4,19 @@
 
 日期以 npm 实际发布时间为准。1.0.0 ~ 1.0.2 为初始发布阶段；旧实现（离屏渲染 / 早期 `CustomVapPlayState` 命名）已归档到 `versions/alpha/` 与 `versions/v1/`，API 与当前版本不同，**勿当现状参考**。
 
+## [1.1.2] - 2026-11-10
+
+### Changed
+
+- **demo**：顶栏新增 npm / GitHub 外链图标（内联 SVG，窄屏不隐藏）；单例调试台与 `usePlayer` 的默认循环次数由 `1` 改为 `0`（无限循环），与压测页一致。
+- 内部重构（公共 API 与运行时行为不变）：`initPoster` / `applyPosterChange` 合并为 `syncPoster(url, failMessage)`；`initBlend` 的点击监听改走 `syncClickListener()`；`ended` 与区间回卷共用 `rewindToStart(fps)`；`load` / `destroy` 的素材状态清理收敛到 `clearMaterialState()`；`writeMaskSlot` 改为按顶点布局循环写入（顶点顺序与渲染结果不变）。
+- `isVAPError` 实现改为箭头函数常量（类型守卫签名不变）；恢复 `src/timeline.ts` 的 `@file` 文件头注释。
+
+### Fixed
+
+- `restoreContext` 在上下文恢复失败分支也清空插槽纹理句柄表（纹理源表保留），避免后续 `setImage` / `setText` 复用失效句柄去 `texImage2D`，导致插槽静默不显示。
+- `releaseResources` 的句柄置空不再被 `gl` 判空短路：即使上下文已不可用，程序 / 缓冲 / 纹理句柄与 `mainInfoRef` 也会被清空，防止 `restoreContext` / `initMaskBlend` 把失效对象误判为"已创建"而跳过重建。
+
 ## [1.1.1] - 2026-11-09
 
 ### Added
