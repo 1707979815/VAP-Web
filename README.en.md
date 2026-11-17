@@ -127,7 +127,7 @@ new CustomVap(el: HTMLDivElement | HTMLCanvasElement, options?: VapOptions)
 | `enableBlob` | `boolean` | `true` | Play through a Blob URL. |
 | `isPreciseFrame` | `boolean` | `true` | Use rVFC; falls back to rAF automatically. |
 | `isClickable` | `boolean` | `false` | Enable VAPX slot click events. |
-| `invisibleBehavior` | `'pause' \| 'skip'` | `'skip'` | Off-screen: pause the timeline, or keep it running and skip painting. |
+| `invisibleBehavior` | `'pause' \| 'skip' \| 'none'` | `'skip'` | Off-screen: `pause` auto-pauses, `skip` keeps the timeline and skips painting, `none` ignores visibility changes entirely. |
 | `fusionEdge` | `'linear' \| 'smooth'` | `'linear'` | Mask curve for the fusion layer. `linear` multiplies the mask alpha as authored; `smooth` hardens it (useful for noisy alpha channels in heavily compressed mp4s). |
 | `fusionAlphaBoost` | `number` | `1` | Alpha gain for the fusion layer. |
 | `defaultPoster` | `string` | — | Poster image shown while idle, after `Clearward`, or when loading fails. |

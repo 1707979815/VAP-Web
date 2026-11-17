@@ -4,6 +4,12 @@
 
 日期以 npm 实际发布时间为准。1.0.0 ~ 1.0.2 为初始发布阶段；旧实现（离屏渲染 / 早期 `CustomVapPlayState` 命名）已归档到 `versions/alpha/` 与 `versions/v1/`，API 与当前版本不同，**勿当现状参考**。
 
+## [1.1.3] - 2026-11-17
+
+### Added
+
+- `invisibleBehavior` 新增 `'none'`：显示 / 隐藏不做任何处理（不暂停、不跳渲染），`canRender()` 在 `'none'` 时忽略可见性。demo 单例页下拉同步新增该选项。
+
 ## [1.1.2] - 2026-11-10
 
 ### Changed

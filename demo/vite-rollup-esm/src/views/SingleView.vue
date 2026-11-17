@@ -73,6 +73,7 @@ const endFrameOptions = [
 const invisibleOptions = [
   { value: "skip", label: "skip", hint: "跳渲染" },
   { value: "pause", label: "pause", hint: "暂停" },
+  { value: "none", label: "none", hint: "不处理" },
 ];
 
 /** 遮罩曲线选项 */

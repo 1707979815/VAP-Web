@@ -195,7 +195,7 @@ window.addEventListener('resize', () => player.resize());
 | `enableBlob` | `boolean` | `true` | 是否将视频转为 Blob URL 播放 |
 | `isPreciseFrame` | `boolean` | `true` | 是否使用 rVFC 精确帧渲染（不支持时自动回退独立 RAF） |
 | `isClickable` | `boolean` | `false` | 是否启用 VAPX 融合层插槽点击事件 |
-| `invisibleBehavior` | `'pause' \| 'skip'` | `'skip'` | 移出视口时的行为：`pause` 自动暂停、`skip` 跳过渲染保持播放 |
+| `invisibleBehavior` | `'pause' \| 'skip' \| 'none'` | `'skip'` | 移出视口时的行为：`pause` 自动暂停、`skip` 跳过渲染保持播放、`none` 显示隐藏不做任何处理 |
 | `defaultPoster` | `string` | - | 默认海报图地址：未播放 / `Clearward` 清屏 / 加载失败时显示 |
 | `fusionEdge` | `'linear' \| 'smooth'` | `'linear'` | 融合层遮罩曲线：`linear` 直乘遮罩 alpha（还原素材设计）；`smooth` 走 `smoothstep` 硬化边缘，可压制 mp4 遮罩通道压缩噪点 |
 | `fusionAlphaBoost` | `number` | `1` | 融合层遮罩 alpha 增益；`>1` 更实，仅特殊观感需求时调 |
@@ -312,6 +312,7 @@ player.onAllClick(({ srcId, srcTag, frame }) => {
 const player = new CustomVap(container, {
   invisibleBehavior: 'pause', // 移出视口时自动暂停，回到视口自动恢复
   // invisibleBehavior: 'skip', // 移出视口时跳过渲染但保持帧同步（默认）
+  // invisibleBehavior: 'none', // 显示/隐藏不做任何处理（不暂停、不跳渲染）
 });
 ```
 
@@ -470,7 +471,7 @@ MIT © 2026 [DreamLife(Zhou)](https://github.com/1707979815)
 ## 📦 关于本仓库
 
 - 本仓库是 **展示仓**：`demo/vite-rollup-esm` 即线上演示站点的源码（GitHub Pages 自动部署），**不含播放器源码**。
-- 播放器以编译后的 npm 包产物分发，demo 直接依赖 registry 上已发布的 [`custom-vap`](https://www.npmjs.com/package/custom-vap)（`^1.1.2`），同时也是接入参考实现。
+- 播放器以编译后的 npm 包产物分发，demo 直接依赖 registry 上已发布的 [`custom-vap`](https://www.npmjs.com/package/custom-vap)（`^1.1.3`），同时也是接入参考实现。
 - 遇到问题或想要新能力，请到 [Issues](https://github.com/1707979815/VAP-Web/issues) 反馈；迁移、素材兼容等问题附上最小复现会快很多。
 
 ## 🙏 致谢
