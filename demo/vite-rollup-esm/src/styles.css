@@ -270,6 +270,26 @@ body {
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0;
   overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+/* 拖入悬停态：只改边框与内发光，不改变布局尺寸，避免拖拽抖动 */
+.stage-shell.dragging {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+/* 拖入提示覆盖层：pointer-events 必须为 none，否则会挡住 drop 目标 */
+.stage-drop-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: #fff;
+  background: rgba(91, 140, 255, 0.22);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .stage {

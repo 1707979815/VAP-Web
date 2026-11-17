@@ -292,16 +292,54 @@ async function playRange() {
 }
 
 /**
- * 选择本地文件：转 blob URL 播放
- * @param {Event} event change 事件
+ * 用本地视频文件播放：转成 blob URL 后走自定义地址通道加载。
+ * 选择器与播放区拖放共用这一条流程，避免两处各自拼 blob 与日志。
+ * @param {File} file 本地视频文件
  */
-function onPickFile(event) {
-  const file = event.target.files && event.target.files[0];
+function playLocalFile(file) {
   if (!file) return;
   useCustomUrl.value = true;
   customUrl.value = URL.createObjectURL(file);
   p.pushLog("local", `本地文件 ${file.name}（${(file.size / 1024).toFixed(0)}KB）`, "ok");
   reload();
+}
+
+/**
+ * 选择本地文件：转 blob URL 播放
+ * @param {Event} event change 事件
+ */
+function onPickFile(event) {
+  playLocalFile(event.target.files && event.target.files[0]);
+}
+
+/** 播放区是否正被拖入（只高亮、不改变其他状态） */
+const dragActive = ref(false);
+
+/**
+ * 拖入悬停：只接受文件拖拽时才点亮提示，避免拖文字/链接时误亮。
+ * @param {DragEvent} event 拖拽事件
+ */
+function onStageDragOver(event) {
+  if (!event.dataTransfer || !event.dataTransfer.types.includes("Files")) return;
+  event.dataTransfer.dropEffect = "copy";
+  dragActive.value = true;
+}
+
+/**
+ * 拖入播放区：取第一个视频文件直接播放。
+ * 非视频文件不接手，交由浏览器默认行为（否则会把文件当页面打开）。
+ * @param {DragEvent} event 拖拽落点事件
+ */
+function onStageDrop(event) {
+  dragActive.value = false;
+  const files = event.dataTransfer && event.dataTransfer.files;
+  const file = files && files[0];
+  if (!file) return;
+  if (!/^video\//.test(file.type)) {
+    p.pushLog("drop", `忽略非视频文件：${file.name}`, "warn");
+    return;
+  }
+  playLocalFile(file);
 }
 
 /**
@@ -731,15 +769,22 @@ onBeforeUnmount(() => window.removeEventListener("keydown", onKeydown));
 
     <!-- ② 播放区（2 份宽） -->
     <section class="stage-col">
-      <div class="stage-shell">
+      <div
+        class="stage-shell"
+        :class="{ dragging: dragActive }"
+        @dragover.prevent="onStageDragOver"
+        @dragleave.prevent="dragActive = false"
+        @drop.prevent="onStageDrop"
+      >
         <div ref="stageRef" class="stage"></div>
         <div v-if="!state.totalFrames" class="stage-empty">
           <span v-if="state.loading" class="spinner"></span>
           <template v-else>
             <strong>尚未加载素材</strong>
-            <em>在左侧操作面板选择内置素材，或选择本地文件</em>
+            <em>在左侧操作面板选择内置素材，选择本地文件，或把视频拖到这里播放</em>
           </template>
         </div>
+        <div v-if="dragActive" class="stage-drop-hint">松开以播放该视频</div>
       </div>
 
       <div class="stage-meta">
